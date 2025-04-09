@@ -1,0 +1,107 @@
+#include <stdio.h>
+#include <string.h>
+
+#define FILAS 2  
+#define COLUMNAS 2
+
+typedef struct {
+    char nombre[50];
+    int edad;
+} Persona;
+
+typedef struct {
+    char producto[50];
+    float precio;
+} Producto;
+
+typedef union {
+    Persona persona;
+    Producto producto;
+} Dato;
+
+typedef struct {
+    Dato valor;
+    int tipo; // 1 para Persona, 2 para Producto
+} Celda;
+
+// Función para ingresar datos en la matriz
+void ingresarDatos(Celda matriz[FILAS][COLUMNAS]) {
+    for (int i = 0; i < FILAS; i++) {
+        for (int j = 0; j < COLUMNAS; j++) {
+            int opcion;
+            printf("Ingrese el tipo de dato para la celda [%d][%d]:\n", i, j);
+            printf("1. Persona\n2. Producto\nSeleccione una opción: ");
+            scanf("%d", &opcion);
+            getchar(); // Limpiar buffer
+
+            switch (opcion) {
+                case 1:
+                    matriz[i][j].tipo = 1;
+                    printf("Ingrese el nombre de la persona: ");
+                    fgets(matriz[i][j].valor.persona.nombre, 50, stdin);
+                    matriz[i][j].valor.persona.nombre[strcspn(matriz[i][j].valor.persona.nombre, "\n")] = 0;
+
+                    printf("Ingrese la edad de la persona: ");
+                    scanf("%d", &matriz[i][j].valor.persona.edad);
+                    getchar();
+
+                    break;
+
+                case 2:
+                    matriz[i][j].tipo = 2;
+                    printf("Ingrese el nombre del producto: ");
+                    fgets(matriz[i][j].valor.producto.producto, 50, stdin);
+                    matriz[i][j].valor.producto.producto[strcspn(matriz[i][j].valor.producto.producto, "\n")] = 0;
+
+                    printf("Ingrese el precio del producto: ");
+                    scanf("%f", &matriz[i][j].valor.producto.precio);
+                    getchar();
+
+                    break;
+
+                default:
+                    printf("Opción inválida. Se dejará la celda vacía.\n");
+                    matriz[i][j].tipo = 0;
+            }
+        }
+    }
+}
+
+// Función para mostrar la matriz
+void mostrarMatriz(Celda matriz[FILAS][COLUMNAS]) {
+    printf("\nRecorriendo la matriz:\n");
+    for (int i = 0; i < FILAS; i++) {
+        for (int j = 0; j < COLUMNAS; j++) {
+            printf("Celda [%d][%d]: ", i, j);
+            
+            switch (matriz[i][j].tipo) {
+                case 1:
+                    printf("Persona - Nombre: %s, Edad: %d\n",
+                           matriz[i][j].valor.persona.nombre,
+                           matriz[i][j].valor.persona.edad);
+                    break;
+
+                case 2:
+                    printf("Producto - Nombre: %s, Precio: %.2f\n",
+                           matriz[i][j].valor.producto.producto,
+                           matriz[i][j].valor.producto.precio);
+                    break;
+
+                default:
+                    printf("Celda vacía.\n");
+            }
+        }
+    }
+}
+
+int main() {
+    Celda matriz[FILAS][COLUMNAS];
+
+    // Ingresar datos en la matriz
+    ingresarDatos(matriz);
+
+    // Mostrar los datos ingresados
+    mostrarMatriz(matriz);
+
+    return 0;
+}

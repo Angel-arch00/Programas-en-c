@@ -1,0 +1,154 @@
+#include <stdio.h>
+#define PI 3.1415
+
+union Dato {
+    float resultado;
+};
+
+// Figuras 2D
+float cuadrado(float lado) { return lado * lado; }
+float rectangulo(float base, float altura) { return base * altura; }
+float circulo(float radio) { return PI * radio * radio; }
+float trapecio(float base_mayor, float base_menor, float altura) { return ((base_mayor + base_menor) * altura) / 2.0; }
+float triangulo(float base, float altura) { return (base * altura) / 2.0; }
+
+// Figuras 3D
+float cubo(float lado) { return lado * lado * lado; }
+float prisma(float largo, float ancho, float alto) { return largo * ancho * alto; }
+float cilindro(float radio, float altura) { return PI * radio * radio * altura; }
+float esfera(float radio) { return (4.0 / 3.0) * PI * radio * radio * radio; }
+
+void imprimir(float resultado) {
+    printf("\nResultado: %.2f\n", resultado);
+}
+
+int main() {
+    int opc;
+    union Dato figura;
+    
+    printf("\nElige la dimensión de tu figura:");
+    printf("\n1. Figuras 2D");
+    printf("\n2. Figuras 3D");
+    printf("\nOpc: ");
+    scanf("%d", &opc);
+    
+    if (opc == 1) {
+        printf("\nElige la figura 2D:");
+        printf("\n1. Cuadrado");
+        printf("\n2. Rectángulo");
+        printf("\n3. Círculo");
+        printf("\n4. Trapecio");
+        printf("\n5. Triángulo");
+        printf("\nOpc: ");
+        
+        int opc2;
+        scanf("%d", &opc2);
+        
+        switch (opc2) {
+            case 1: {
+                float lado;
+                printf("\nIngrese el lado: ");
+                scanf("%f", &lado);
+                figura.resultado = cuadrado(lado);
+                break;
+            }
+            case 2: {
+                float base, altura;
+                printf("\nIngrese la base: ");
+                scanf("%f", &base);
+                printf("Ingrese la altura: ");
+                scanf("%f", &altura);
+                figura.resultado = rectangulo(base, altura);
+                break;
+            }
+            case 3: {
+                float radio;
+                printf("\nIngrese el radio: ");
+                scanf("%f", &radio);
+                figura.resultado = circulo(radio);
+                break;
+            }
+            case 4: {
+                float base_mayor, base_menor, altura;
+                printf("\nIngrese la base mayor: ");
+                scanf("%f", &base_mayor);
+                printf("Ingrese la base menor: ");
+                scanf("%f", &base_menor);
+                printf("Ingrese la altura: ");
+                scanf("%f", &altura);
+                figura.resultado = trapecio(base_mayor, base_menor, altura);
+                break;
+            }
+            case 5: {
+                float base, altura;
+                printf("\nIngrese la base: ");
+                scanf("%f", &base);
+                printf("Ingrese la altura: ");
+                scanf("%f", &altura);
+                figura.resultado = triangulo(base, altura);
+                break;
+            }
+            default:
+                printf("\nOpción inválida\n");
+                return 0;
+        }
+    }
+    else if (opc == 2) {
+        printf("\nElige la figura 3D:");
+        printf("\n1. Cubo");
+        printf("\n2. Prisma Rectangular");
+        printf("\n3. Cilindro");
+        printf("\n4. Esfera");
+        printf("\nOpc: ");
+        
+        int opc3;
+        scanf("%d", &opc3);
+        
+        switch (opc3) {
+            case 1: {
+                float lado;
+                printf("\nIngrese el lado: ");
+                scanf("%f", &lado);
+                figura.resultado = cubo(lado);
+                break;
+            }
+            case 2: {
+                float largo, ancho, alto;
+                printf("\nIngrese el largo: ");
+                scanf("%f", &largo);
+                printf("Ingrese el ancho: ");
+                scanf("%f", &ancho);
+                printf("Ingrese la altura: ");
+                scanf("%f", &alto);
+                figura.resultado = prisma(largo, ancho, alto);
+                break;
+            }
+            case 3: {
+                float radio, altura;
+                printf("\nIngrese el radio: ");
+                scanf("%f", &radio);
+                printf("Ingrese la altura: ");
+                scanf("%f", &altura);
+                figura.resultado = cilindro(radio, altura);
+                break;
+            }
+            case 4: {
+                float radio;
+                printf("\nIngrese el radio: ");
+                scanf("%f", &radio);
+                figura.resultado = esfera(radio);
+                break;
+            }
+            default:
+                printf("\nOpción inválida\n");
+                return 0;
+        }
+    }
+    else {
+        printf("\nOpción inválida\n");
+        return 0;
+    }
+    
+    imprimir(figura.resultado);
+    return 0;
+}
