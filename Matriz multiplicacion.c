@@ -6,8 +6,12 @@ void pedirMatrices(int a[N][N], int b[N][N]) {
     printf("Ingresa matriz A:\n");
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < N; j++) {
-            printf("A[%d][%d]: ", i, j);
-            scanf("%d", &a[i][j]);
+            printf("A*[%d]*[%d]*: ", i, j);
+            setColor("\033[7;32m");
+            printf("\n----------");
+            setColor("\033[7;32m");
+            scanf("*%d", &a[i][j]);
+            
         }
     }
 
@@ -42,7 +46,8 @@ int main() {
     printf("\nMatriz resultado (A x B):\n");
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < N; j++) {
-            printf("%d ", resultado[i][j]);
+            printf("\n","%d", resultado[i][j]);
+            
         }
         printf("\n");
     }
